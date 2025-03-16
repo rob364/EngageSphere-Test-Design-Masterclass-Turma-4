@@ -13,13 +13,11 @@ const CookieConsent = ({ giveConsentClickHandler, declineConsentClickHandler }) 
             primary={true}
             text="Accept"
             onClick={giveConsentClickHandler}
-            datatest="accept-button"
           />
           <Button
             primary={false}
             text="Decline"
             onClick={declineConsentClickHandler}
-            datatest="decline-button"
           />
         </div>
       </div>

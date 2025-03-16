@@ -1,8 +1,9 @@
 describe("EngageSphere GUI", () => {
   
     beforeEach(() => {
-      cy.visit("/");
       cy.setCookie('cookieConsent', 'accepted')
+      cy.visit("/");
+      
     });
   
     it("CT01 - Recupera clientes com sucesso (Mantém os filtros ao voltar da visualização de detalhes do cliente *)", () => {

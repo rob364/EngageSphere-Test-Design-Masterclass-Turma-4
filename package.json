@@ -6,8 +6,7 @@
     "install:frontend": "cd frontend && npm install",
     "install:backend": "cd backend && npm install",
     "start:frontend": "cd frontend && npm start",
-    "start:server": "cd backend && npm start",
-    "test:e2e": "start-server-and-test \"npm run start:server\" 3001 \"npm run start:frontend\" 3000 \"npx cypress open\""
+    "start:server": "cd backend && npm start"
   },
   "repository": {
     "type": "git",
