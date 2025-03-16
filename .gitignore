@@ -13,5 +13,7 @@ cypress/downloads/
 cypress/screenshots/
 cypress/videos/
 
+
 # misc
 .DS_Store
+cypress/fixtures/
