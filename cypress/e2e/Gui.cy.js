@@ -2,7 +2,7 @@ describe("EngageSphere GUI", () => {
   
     beforeEach(() => {
       cy.visit("/");
-      cy.get('[data-test="accept-button"]').click();
+      cy.setCookie('cookieConsent', 'accepted')
     });
   
     it("CT01 - Recupera clientes com sucesso (Mantém os filtros ao voltar da visualização de detalhes do cliente *)", () => {
