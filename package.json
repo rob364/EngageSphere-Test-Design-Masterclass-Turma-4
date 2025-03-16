@@ -19,7 +19,7 @@
   "homepage": "https://github.com/wlsf82/EngageSphere-Test-Design-Masterclass-Turma-4/blob/main/README.md",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "cypress": "^14.1.0"
+    "cypress": "^14.2.0"
   },
   "browserslist": {
     "production": [
