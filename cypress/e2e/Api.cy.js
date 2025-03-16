@@ -1,4 +1,4 @@
-describe("EngageSphere - Interface Inicial API", () => {
+describe("EngageSphere API", () => {
   
   beforeEach(() => {
     cy.visit("/");

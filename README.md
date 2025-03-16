@@ -24,6 +24,9 @@ Read the following [doc](./docs/TestEnvironment.md) to install and start the bac
 
 Read the following [doc](./docs/TestCases.md) to get a list of test cases.
 
+to run the test cases:
+npx cypress open
+
 ___
 
 Made with ❤️ by [Walmyr](https://walmyr.dev).
