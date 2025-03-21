@@ -17,4 +17,4 @@ cypress/videos/
 # misc
 .DS_Store
 cypress/fixtures/
-Lixo
+cypress/Lixo/
