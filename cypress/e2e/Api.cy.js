@@ -1,23 +1,37 @@
 describe("EngageSphere API", () => {
-  it("Recupera 10 clientes com sucesso e verifica o código de status 200", () => {
+  const apiUrl = Cypress.env("CUSTOMERS_API_URL"); 
+  it("Verificando se na recuperação do cliente o status é 200", () => {
     const page = 1;
+
     cy.request({
       method: "GET",
-      url: `${Cypress.env("apiUrl")}/customers?page=${page}`,
+      url: `${apiUrl}?page=${page}`, 
     }).then((response) => {
       expect(response.status).to.eq(200);
-      expect(response.body.customers).to.be.an("array"); 
     });
   });
+
+  it("Recuperando 10 clientes com sucesso", () => {
+    const page = 1;
+
+    cy.request({
+      method: "GET",
+      url: `${apiUrl}?page=${page}`,
+    }).then((response) => {
+      expect(response.body).to.have.property("customers");
+      expect(response.body.customers).to.be.an("array").that.has.length(10);
+    });
+  });
+
   it("Realiza a paginação de clientes corretamente", () => {
-    const CUSTOMERS_API_URL = Cypress.env("CUSTOMERS_API_URL"); 
+    cy.request("GET", `${apiUrl}?page=2`).as("getCustomersPageTwo");
 
-    cy.request("GET", `${CUSTOMERS_API_URL}?page=2`).as("getCustomersPageTwo");
-
-    cy.get("@getCustomersPageTwo")
-      .its("body.pageInfo.currentPage")
-      .should("eq", 2); 
+    cy.get("@getCustomersPageTwo").then((response) => {
+      expect(response.body).to.have.property("pageInfo");
+      expect(response.body.pageInfo).to.have.property("currentPage", 2);
+    });
   });
 });
 
- 
+
+

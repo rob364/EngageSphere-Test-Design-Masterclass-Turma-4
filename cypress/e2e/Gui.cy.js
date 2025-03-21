@@ -1,45 +1,63 @@
 describe("EngageSphere GUI", () => {
-  
-    beforeEach(() => {
-      cy.setCookie('cookieConsent', 'accepted')
-      cy.visit("/");
-      
-    });
-  
-    it("CT01 - Recupera clientes com sucesso (Mantém os filtros ao voltar da visualização de detalhes do cliente *)", () => {
-      //cy.buscarClientes()
-      cy.get('[data-test="view-customer-0"]').click();
-      cy.get('[data-test="button-back"]').click();
-      cy.get('[data-testid="size-filter"]')
-        .find('option')
-        .should('contain', 'All');
-
-      });
-
-      // it("CT02 - Retorna à lista de clientes ao clicar no botão Voltar*)", () => {
-       
-    
-      //   });
-
-      //   it("CT03 - Exibie o rodapé com o texto e links corretos *)", () => {
-        
-    
-      //       });
-
-      //     it("CT04 - Exibe a saudação Hi, there quando nenhum nome é fornecido *)", () => {
-        
-    
-      //           });
-
-      //   it("CT05 - Exibe a saudação Hi, Joe quando o nome é fornecido *)", () => {
-        
-    
-      //               });
-
-      // it("CT06 - Exibe o cabeçalho com um título, alternador de tema e um campo de entrada de texto *)", () => {  
-      
-    
-      //                   });
+  beforeEach(() => {
+    cy.setCookie('cookieConsent', 'accepted');
+    cy.visit("/");
+  });
+  it("Recupera clientes com sucesso (Mantém os filtros ao voltar da visualização de detalhes do cliente *)", () => {
+    cy.get('[data-testid="size-filter"]').select('Small');
+    cy.contains('button', 'View').click();
+    cy.contains('button', 'Back').click();
+    cy.get('[data-testid="size-filter"]').should('have.value', 'Small');
+  });
+  it('exibe o rodapé com o texto e links corretos', () => {
+    cy.get('[data-testid="footer"]').should('be.visible')
+    cy.get('[data-testid="footer"]').contains('Copyright 2025 - Talking About Testing')
+    // Verifica os links
+    const links = [
+      { text: 'Blog', href: 'https://talkingabouttesting.com' },
+      { text: 'Courses', href: 'https://talking-about-testing.vercel.app/' },
+      { text: 'Podcast', href: 'https://open.spotify.com/show/5HFlqWkk6qtgJquUixyuKo' },
+      { text: 'YouTube', href: 'https://youtube.com/@talkingabouttesting' }
+    ]
+    links.forEach(link => {
+      cy.get('[data-testid="footer"]')
+        .contains('a', link.text)
+        .should('have.attr', 'href', link.href)
+        .and('have.attr', 'target', '_blank') // Garante que o link abre em nova aba
+    })
+  })
+  it('exibe a saudação padrão "Hi there!" quando nenhum nome é fornecido', () => {
+    cy.get('[data-testid="name"]').type('Joe')
+    cy.get('[data-testid="table"]')
+      .find('h2')
+      .should('contain.text', 'Hi Joe')
+  })
+  it("Retorna à lista de clientes ao clicar no botão Voltar", () => {
+    cy.contains('button', 'View').click();
+    cy.contains('button', 'Back').click();
+    cy.url().should("eq", "http://localhost:3000/");
     
   });
-  
+  describe("Filtragem por tamanho", () => {
+    const filtros = ['Small', 'Medium', 'Enterprise', 'Large Enterprise', 'Very Large Enterprise'];
+    filtros.forEach((filtro) => {
+      it(`Deve filtrar por ${filtro} e garantir que o filtro permanece ao voltar`, () => {
+        cy.get('[data-testid="size-filter"]').select(filtro);
+        cy.contains('button', 'View').click();
+        cy.contains('button', 'Back').click();
+        cy.get('[data-testid="size-filter"]').should('have.value', filtro);
+      });
+    });
+  });
+  describe("Filtragem por indústria", () => {
+    const industrias = ['Logistics', 'Retail', 'Technology', 'HR', 'Finance'];
+    industrias.forEach((industria) => {
+      it(`Deve filtrar por ${industria} e garantir que o filtro permanece ao voltar`, () => {
+        cy.get('[data-testid="industry-filter"]').select(industria);
+        cy.contains('button', 'View').click();
+        cy.contains('button', 'Back').click();
+        cy.get('[data-testid="industry-filter"]').should('have.value', industria);
+      });
+    });
+  });
+});
