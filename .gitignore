@@ -18,3 +18,6 @@ cypress/videos/
 .DS_Store
 cypress/fixtures/
 /Lixo
+/bash.exe.stackdump
+cypress/fixtures/
+cypress/support/

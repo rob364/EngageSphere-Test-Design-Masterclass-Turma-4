@@ -3,7 +3,7 @@ describe("EngageSphere GUI", () => {
     cy.setCookie('cookieConsent', 'accepted');
     cy.visit("/");
   });
-  it("Recupera clientes com sucesso (Mantém os filtros ao voltar da visualização de detalhes do cliente *)", () => {
+  it("Recupera clientes com sucesso e mantém os filtros ao voltar da visualização de detalhes do cliente *)", () => {
     cy.get('[data-testid="size-filter"]').select('Small');
     cy.contains('button', 'View').click();
     cy.contains('button', 'Back').click();
